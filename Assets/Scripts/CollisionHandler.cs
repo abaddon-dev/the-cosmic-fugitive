@@ -1,8 +1,17 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] float levelLoadDelay = 2f;
+    [SerializeField] AudioClip success;
+    [SerializeField] AudioClip crash;
+
+    AudioSource audioSource;
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
     void OnCollisionEnter(Collision other)
     {
         switch(other.gameObject.tag)
@@ -11,15 +20,28 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("This thing is friendly");
                 break;
             case "Finish":
-                LoadNextLevel();
-                break;
-            case "Fuel":
-                Debug.Log("You picked up fuel");
+                StartSuccessSequence();
                 break;
             default:
-                ReloadLevel();
+                StartCrashSequence();
                 break;
         }
+    }
+
+    void StartSuccessSequence()
+    {
+        audioSource.PlayOneShot(success);
+        // todo add particle effects upon success
+        GetComponent<Movement>().enabled = false;
+        Invoke("LoadNextLevel", levelLoadDelay);
+    }
+
+    void StartCrashSequence()
+    {
+        audioSource.PlayOneShot(crash);
+        // todo add particle effects upon crash
+        GetComponent<Movement>().enabled = false;
+        Invoke("ReloadLevel", levelLoadDelay);
     }
 
     void ReloadLevel()
