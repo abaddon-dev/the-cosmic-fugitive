@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameTimer : MonoBehaviour
 {
     [Tooltip("Our level timer in SECONDS")]
-    [SerializeField] public float levelTime = 10;
+    [SerializeField] public float levelTime = 20;
     public bool triggeredLevelFinished = false;
 
     CollisionHandler collisionHandler;
@@ -22,7 +22,7 @@ public class GameTimer : MonoBehaviour
     void Update()
     {
         if(triggeredLevelFinished) { return; }
-        GetComponent<Slider>().value = Time.timeSinceLevelLoad / levelTime;
+        FindObjectOfType<Slider>().value = Time.timeSinceLevelLoad / levelTime;
 
         bool timerFinished = (Time.timeSinceLevelLoad >= levelTime);
         if(timerFinished)

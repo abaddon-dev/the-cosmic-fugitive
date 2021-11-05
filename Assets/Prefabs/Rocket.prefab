@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 953154585}
   - component: {fileID: 2061073551}
   - component: {fileID: 4403035168773009078}
+  - component: {fileID: 2072813459}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Untagged
@@ -371,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainThrust: 1000
-  rotationThrust: 100
+  rotationThrust: 200
   mainEngine: {fileID: 8300000, guid: 806c38b304bb6a74c903d3ec55f3b964, type: 3}
   mainEngineParticles: {fileID: 6515646427912515434}
   leftThrusterParticles: {fileID: 5482115098227993382}
@@ -386,7 +387,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 806c38b304bb6a74c903d3ec55f3b964, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -489,6 +490,9 @@ MonoBehaviour:
   crash: {fileID: 8300000, guid: ccafdca3f2dc3524abd4d12aeb8b657e, type: 3}
   successParticles: {fileID: 1001816488040955167}
   crashParticles: {fileID: 1563225317796357307}
+  waitToLoad: 10
+  winLabel: {fileID: 0}
+  loseLabel: {fileID: 0}
 --- !u!65 &4403035168773009078
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -502,6 +506,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2072813459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2157555955142279428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ebaffa83110db4db5cca081b3edd58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTime: 30
+  triggeredLevelFinished: 0
 --- !u!1 &2578762035411375600
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3295630787774261566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.27, z: -6.97}
+  m_LocalPosition: {x: 0, y: 3.29, z: -6.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4646662895036076350}

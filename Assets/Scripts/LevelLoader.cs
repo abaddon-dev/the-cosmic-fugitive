@@ -18,11 +18,11 @@ public class LevelLoader : MonoBehaviour
         }
     }
 
-    /*IEnumerator WaitForTime()
+    public IEnumerator WaitForTime()
     {
         yield return new WaitForSeconds(timeToWait);
         LoadNextScene();
-    }*/
+    }
 
     public void RestartScene()
     {

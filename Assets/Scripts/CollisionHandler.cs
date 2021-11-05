@@ -15,6 +15,8 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
     LevelController levelController;
+    
+    Movement movement;
     GameTimer gameTimer;
 
     bool isTransitioning = false;
@@ -27,18 +29,23 @@ public class CollisionHandler : MonoBehaviour
     void Start() {
         audioSource = GetComponent<AudioSource>();
         gameTimer = GetComponent<GameTimer>();
+        movement = GetComponent<Movement>();
+
         winLabel.SetActive(false);
         loseLabel.SetActive(false);
     }
     void Update() 
     {
-        Debug.Log(gameTimer.triggeredLevelFinished);
-        if(gameTimer.triggeredLevelFinished == true)
-        {
-            // Brakowało referencji między skryptami GameTimer, a CollisionHandler. W chwili, gdy dodałem skrypt CollisionHandler do obiektu Slider, zaczął się (WRESZCIE) pojawiać ekran porażki po upłynięciu wyznaczonego czasu
+        if(GetComponent<GameTimer>().triggeredLevelFinished) 
+        { 
+            GetComponent<GameTimer>().triggeredLevelFinished = false;
             StartCrashSequence();
         }
-        RespondToDebugKeys();
+        
+            RespondToDebugKeys();
+        
+            // Brakowało referencji między skryptami GameTimer, a CollisionHandler. W chwili, gdy dodałem skrypt CollisionHandler do obiektu Slider, zaczął się (WRESZCIE) pojawiać ekran porażki po upłynięciu wyznaczonego czasu
+            // Nie mogłem uzyskać efektu odłączenia komponentów (,p. movement) obiektu, ponieważ bylo ustawione GetComponent<Slider>().value, zamiast FindObjectOfType<Slider>().value
     }
 
     void RespondToDebugKeys()
@@ -79,19 +86,25 @@ public class CollisionHandler : MonoBehaviour
         audioSource.Stop();
         audioSource.PlayOneShot(success);
         successParticles.Play();
-        GetComponent<Movement>().enabled = false;
+        movement.enabled = false;
+        //audioSource.enabled = false;
+        GetComponent<CollisionHandler>().enabled = false;
+        gameTimer.enabled = false;
         //Invoke("LoadNextLevel", levelLoadDelay);
     }
 
-    public void StartCrashSequence()
+    void StartCrashSequence()
     {
         isTransitioning = true;
         loseLabel.SetActive(true);
         audioSource.Stop();
         audioSource.PlayOneShot(crash);
         crashParticles.Play();
-        GetComponent<Movement>().enabled = false;
-        //Invoke("ReloadLevel", levelLoadDelay);   
+        movement.enabled = false;
+        //audioSource.enabled = false;
+        GetComponent<CollisionHandler>().enabled = false;
+        gameTimer.enabled = false;
+        //Invoke("ReloadLevel", levelLoadDelay);
     }
 
     void ReloadLevel()
